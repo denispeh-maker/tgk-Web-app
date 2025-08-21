@@ -1,14 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Total balance UI</title>
+  <style>
+    :root{
+      --bg: var(--tg-theme-bg-color, #0f1116);
+      --text: var(--tg-theme-text-color, #e6e6e6);
+      --muted: #99a1b3;
+      --accent: #2f6ae7;
+    }
+    html, body { margin:0; background:var(--bg); color:var(--text); }
+    body { font-family: system-ui, Segoe UI, Roboto, Inter, Arial, sans-serif; padding:24px; }
+
+    .balance { display:inline-block; }
+    .balance__label {
+      font-size: 12px; color: var(--muted); margin-bottom: 4px;
+    }
+    .balance__row { display:flex; align-items: baseline; gap:8px; }
+    .balance__value {
+      font-size: 40px; font-weight:700; line-height:1;
+      font-variant-numeric: tabular-nums; letter-spacing:0.2px;
+    }
+    .balance__add {
+      border:none; background:transparent; color:var(--accent);
+      font-size:28px; line-height:1; cursor:pointer; padding:0 6px; border-radius:8px;
+    }
+    .balance__add:hover { background: rgba(47,106,231,.12); }
+    .balance__add:active { transform: translateY(1px); }
+  </style>
 </head>
 <body>
-    <div id="bot test">
-        <p>Lorem </p>
-        <button id="buy">Buy</button>
+
+  <div class="balance">
+    <div class="balance__label">Total balance</div>
+    <div class="balance__row">
+      <span class="balance__value">$0.00</span>
+      <button class="balance__add" aria-label="Add">+</button>
     </div>
+  </div>
 
 </body>
 </html>
