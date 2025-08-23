@@ -1,48 +1,27 @@
-import asyncio
-from aiogram import Bot, Dispatcher, types, F
+from aiogram import Bot, Dispatcher, Router
+from aiogram.enums import ParseMode
+from aiogram.client.default import DefaultBotProperties
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
+from aiogram.filters import CommandStart
+import asyncio, os
 
-from aiogram.types import Message
-from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardMarkup, InlineKeyboardButton
-from aiogram.filters import Command
-
-
+TOKEN = os.getenv("BOT_TOKEN")
+bot = Bot(TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher()
+r = Router(); dp.include_router(r)
 
-bot = Bot(token='8335517289:AAE-VK6UsaFgoZWtIyNQQUbfBTtnyQJKAIE')
+@r.message(CommandStart())
+async def start(m):
+    kb = InlineKeyboardMarkup(inline_keyboard=[[
+        InlineKeyboardButton(
+            text="🚀 Launch App",
+            web_app=WebAppInfo(url="https://denispeh-maker.github.io/tgk-Web-app/")  # твій Pages-URL
+        )
+    ]])
+    await m.answer("Відкрий WebApp:", reply_markup=kb)
 
-
-
-# --- Inline клавіатура ---
-inline_kb = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [InlineKeyboardButton(text="Site", url="https://altseting-token.vercel.app/")],
-        [InlineKeyboardButton(text="Натисни мене", callback_data="btn1")]
-    ]
-)
-
-
-# --- Обробка команд /start та /help ---
-@dp.message(Command(commands=["start", "help"]))
-async def cmd_start(message: Message):
-    await message.answer("А тут inline-кнопки 👇", reply_markup=inline_kb)
-
-
-# --- Обробка callback від inline-кнопок ---
-@dp.callback_query(F.data == "btn1")
-async def process_callback(callback: types.CallbackQuery):
-    await callback.answer("Ти натиснув inline-кнопку!")
-
-
-
-
-
-
-
-
-
-
-
-
+if __name__ == "__main__":
+    asyncio.run(dp.start_polling(bot))
 async def main():
     await dp.start_polling(bot)
 
