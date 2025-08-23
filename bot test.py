@@ -5,7 +5,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 from aiogram.filters import CommandStart
 import asyncio, os
 
-TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = ("8335517289:AAE-VK6UsaFgoZWtIyNQQUbfBTtnyQJKAIE")
 bot = Bot(TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher()
 r = Router(); dp.include_router(r)
@@ -27,3 +27,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
